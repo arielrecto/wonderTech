@@ -178,62 +178,52 @@ class ProductController extends Controller
 
         $product = Product::find($id);
 
-        $updateName = $request->input('name') != null
-            ? $request->name
-            : $product->name;
 
-        $updateProcessorBrand = $request->input('processor_brand') != null
-            ? $request->processor_brand
-            : $product->processor_brand;
+        $product->update([
+            'name' => $request->input('name') != null
+                ? $request->name
+                : $product->name,
+            'price' => $request->input('price') != null
+                ? $request->price
+                : $product->price,
+            'processor_brand' => $request->input('price') != null
+                ? $request->processor_brand
+                : $product->processor_brand,
+            'processor_generation' => $request->input('processor_generation') != null
+                ? $request->processor_generation
+                : $product->processor_generation,
+            'processor_type' => $request->input('processor_type') != null
+                ? $request->processor_type
+                : $product->processor_type,
+            'graphic_card_brand' => $request->input('graphic_card_brand') != null
+                ? $request->graphic_card_brand
+                : $product->graphic_card_brand,
+            'graphic_card_type' => $request->input('graphic_card_type') != null
+                ? $request->graphic_card_type
+                : $product->graphic_card_type,
+            'memory_size' => $request->input('memory_size') != null
+                ? $request->memory_size
+                : $product->memory_size,
+            'memory_type' => $request->input('memory_type') != null
+                ? $request->memory_type
+                : $product->memory_type,
+            'storage' => $request->input('storage') != null
+                ? $request->storage
+                : $product->storage,
+            'category' => $request->input('category') != null
+                ? $request->category
+                : $product->category,
+            'description' => $request->input('description') != null
+                ? $request->description
+                : $product->description,
+            'review' => $request->input('review') != null
+                ? $request->review
+                : $product->review
 
-        $updateProcessorGeneration = $request->input('processor_generation') != null
-            ? $request->processor_generation
-            : $product->processor_generation;
+        ]);
 
-        $updateProcessorType = $request->input('processor_type') != null
-            ? $request->processor_type
-            : $product->processor_type;
 
-        $updateGraphicBrand = $request->input('graphic_card_brand') != null
-            ? $request->graphic_card_brand
-            : $product->graphic_card_brand;
 
-        $updateGraphicType = $request->input('graphic_card_type') != null
-            ? $request->graphic_card_type
-            : $product->graphic_card_type;
-
-        $updateMemorySize = $request->input('memory_size') != null
-            ? $request->memory_size
-            : $product->memory_size;
-
-        $updateMemoryType = $request->input('memory_type') != null
-            ? $request->memory_type
-            : $product->memory_type;
-
-        $updateDescription = $request->input('description') != null
-            ? $request->description
-            : $product->description;
-
-        $updateReview = $request->input('review') != null
-            ? $request->review
-            : $product->review;
-
-        $updatePrice = $request->input('price') != null
-            ? $request->price
-            : $product->price;
-
-         $product->name = $updateName;
-         $product->processor_brand = $updateProcessorBrand;
-         $product->processor_generation = $updateProcessorGeneration;
-         $product->processor_type = $updateProcessorType;
-         $product->graphic_card_brand = $updateGraphicBrand;
-         $product->graphic_card_type = $updateGraphicType;
-         $product->memory_size = $updateMemorySize;
-         $product->memory_type = $updateMemoryType;
-         $product->description = $updateDescription;
-         $product->review = $updateReview;
-         $product->price = $updatePrice;
-         $product->save();
 
 
 
@@ -258,7 +248,8 @@ class ProductController extends Controller
         return redirect('/admin/p/all');
     }
 
-    public function delete($id, Request $request) {
+    public function delete($id, Request $request)
+    {
 
         $userLogged = $request->session()->get('loggedUser');
 
@@ -268,8 +259,6 @@ class ProductController extends Controller
 
 
         return view('components.layouts.content.products.delete', compact('product', 'user'));
-
-
     }
 
     public function stats(Request $request)
