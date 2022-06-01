@@ -7,7 +7,7 @@ $viewButton = 1;
 <x-layouts.app>
 
     <x-layouts.content.authentication.navbar>
-        {{$user->name}}
+        {{ $user->name }}
     </x-layouts.content.authentication.navbar>
 
     <div class="flex justify-center p-2">
@@ -72,12 +72,12 @@ $viewButton = 1;
                     <div class="flex flex-col gap-2 w-1/2">
                         <div class="w-full p-5">
                             <h1 class="text-xl font-bold">Description</h1>
-                            <p>{{$product->description}}</p>
+                            <p>{{ $product->description }}</p>
                         </div>
 
                         <div class="w-full p-5">
                             <h1 class="text-xl font-bold">Review</h1>
-                            <p>{{$product->review}}</p>
+                            <p>{{ $product->review }}</p>
                         </div>
                     </div>
                 </div>
@@ -87,9 +87,32 @@ $viewButton = 1;
                     </div>
 
                     <div class="flex gap-2">
-                       <a href="{{route('admin.product.edit', ['id' => $product->id])}}" class="btn btn-success">Edit</a>
-                       <a href="{{route('admin.product.delete',['id' => $product->id])}}" class="btn btn-error">Delete</a>
+                        <a href="{{ route('admin.product.edit', ['id' => $product->id]) }}"
+                            class="btn btn-success">Edit</a>
+
+
+                        <label for="my-modal-6" class="btn modal-button btn-error">Delete</label>
                     </div>
+                </div>
+            </div>
+
+
+            <!-- Put this part before </body> tag -->
+            <input type="checkbox" id="my-modal-6" class="modal-toggle" />
+            <div class="modal modal-bottom sm:modal-middle">
+                <div class="modal-box">
+                    <h3 class="font-bold text-lg">Are You Sure to Delete This File ?</h3>
+                    <div class="flex gap-2">
+                        <div class="p-6">
+                            <a href="{{ route('admin.product.destroy', ['id' => $product->id]) }}"
+                                class="btn btn-error">Delete</a>
+                        </div>
+
+                        <div class="modal-action">
+                            <label for="my-modal-6" class="btn">No</label>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -98,5 +121,5 @@ $viewButton = 1;
 
     </div>
 
-
+    <x-layouts.content.footer />
 </x-layouts.app>

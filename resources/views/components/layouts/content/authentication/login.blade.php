@@ -41,7 +41,7 @@
         </div>
     </div>
 
-
+<x-layouts.content.footer />
 
 
 

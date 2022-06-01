@@ -39,6 +39,6 @@
             </form>
         </div>
     </section>
-
+<x-layouts.content.footer/>
 
 </x-layouts.app>

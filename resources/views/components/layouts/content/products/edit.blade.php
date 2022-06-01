@@ -270,5 +270,6 @@
 
         </div>
     </div>
+    <x-layouts.content.footer />
 
 </x-layouts.app>

@@ -60,8 +60,8 @@ Route::name('admin.')->group(function () {
                 Route::get('admin/p/show/{product}', [ProductController::class, 'show'])->name('show');
                 Route::get('admin/p/edit/{id}', [ProductController::class, 'edit'])->name('edit');
                 Route::post('admin/p/update/{id}', [ProductController::class, 'update'])->name('update');
-                Route::get('admin/p/delete/{id}', [ProductController::class, 'delete'])->name('delete');
                 Route::get('admin/p/destroy/{id}', [ProductController::class, 'destroy'])->name('destroy');
+                Route::get('admin/p/gallery', [ProductController::class, 'images'])->name('gallery');
             });
         });
     });

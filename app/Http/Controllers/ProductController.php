@@ -7,6 +7,9 @@ use App\Models\Product;
 use App\Models\Image;
 use App\Models\User;
 use Illuminate\Support\Facades\Redis;
+use ArielMejiaDev\LarapexCharts\LarapexChart;
+
+
 
 
 class ProductController extends Controller
@@ -236,36 +239,33 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id, Request $request)
+    public function destroy($id)
     {
 
 
         $product = Product::find($id);
-
         $product->delete();
 
+        $images = Image::where('product_id', '=', $id);
+        $images->delete();
+    
 
         return redirect('/admin/p/all');
     }
-
-    public function delete($id, Request $request)
-    {
-
-        $userLogged = $request->session()->get('loggedUser');
-
-        $user = User::find($userLogged);
-
-        $product = Product::find($id);
-
-
-        return view('components.layouts.content.products.delete', compact('product', 'user'));
-    }
-
+    
     public function stats(Request $request)
     {
 
         $totalItems = Product::all()->count();
         $totalItemsStudent = Product::all()->where('category', '=', 'student')->count();
+        $totalItemsTeacher = Product::all()->where('category', '=', 'Teacher')->count();
+        $totalItemsOfficeWorker = Product::all()->where('category', '=', 'office_worker')->count();
+
+
+        $chart = (new LarapexChart)->pieChart()
+            ->setTitle('Total Items based on Category')
+            ->addData([$totalItemsStudent, $totalItemsTeacher, $totalItemsOfficeWorker])
+            ->setLabels(['Student', 'Teacher', 'Office Worker']);
 
 
 
@@ -275,6 +275,29 @@ class ProductController extends Controller
 
 
 
-        return view('components.layouts.content.products.statistic', compact('totalItems', 'totalItemsStudent', 'user'));
+        return view(
+            'components.layouts.content.products.statistic',
+            compact(
+                'totalItems',
+                'totalItemsStudent',
+                'user',
+                'totalItemsTeacher',
+                'totalItemsOfficeWorker',
+                'chart'
+            )
+        );
+    }
+    public function images(Request $request)
+    {
+
+
+        $userLogged = $request->session()->get('loggedUser');
+
+        $user = User::find($userLogged);
+
+        $images = Image::all();
+
+
+        return view('components.layouts.content.products.gallery', compact('user', 'images'));
     }
 }
